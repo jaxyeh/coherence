@@ -18,7 +18,9 @@ defmodule Coherence.Schemas do
 
   def get_by_user(opts) do
     # Lowercase the username!
-    opts = Keyword.put opts, :username, String.downcase(opts[:username])
+    if Keyword.keyword?(opts) && Keyword.has_key?(opts, :username) do
+      opts = Keyword.put opts, :username, String.downcase(opts[:username])
+    end
     Config.repo.get_by Config.user_schema, opts
   end
 
