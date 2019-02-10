@@ -111,6 +111,8 @@ defmodule Coherence.ConfirmationController do
           })
           case Config.repo.update(changeset) do
             {:ok, _user} ->
+              # Send out "Welcome" Email
+              send_user_email :welcome, user, ""
               conn
               |> respond_with(
                 :confirmation_update_success,
